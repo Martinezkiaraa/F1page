@@ -86,7 +86,7 @@ pointer-events: none;
 h1 {
   font-family:'Audiowide', sans-serif;
   color: white;
-  font-size: clamp(2rem, 4vw, 3rem); /* ajusta entre 32px y 64px según el ancho */
+  font-size: clamp(2rem, 4vw, 3rem); 
 }
 h2{
   font-family: 'Noto Sans', sans-serif;

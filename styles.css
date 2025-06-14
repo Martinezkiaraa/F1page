@@ -1,73 +1,97 @@
 * {
-    margin: 0px;
-    padding: 0;
-    background-color: black;
-}
-header {
-    justify-items: center;
-    position: relative;
-    height: 600px; /* Altura del header */
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* fondo negro con 50% opacidad */
-    z-index: -1;
-  }
-header video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2; /* Para que el video quede detrás del contenido */
-  }
-  .gradient-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 200px; /* altura del degradado */
-    width: 100%;
-    background: linear-gradient(to bottom, transparent, #a00, #000);
-    z-index: 1; /* entre el video (0) y el contenido (2) */
-  }
-.contenido {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-}
-.title, .subtitle {
-  margin: 0;
+  margin: 0px;
   padding: 0;
-  line-height: 1.2; /* o menos, si aún están separados */
+  scrollbar-width: none;
+
 }
-.escuderias {
-    display: grid;
-    grid-template-columns:  repeat(2, 1fr);  /* 3 columnas de igual tamaño */
-    grid-template-rows: 100px 200px;         /* 2 filas, primera de 100px y segunda de 200px */
-    gap: 10px; 
+
+header .background {
+position: relative;
+justify-items: center;
+width:100%; /* Altura del header */
+height: 910px;
+}
+/*<---------------------- INICIO ----------------->*/
+body{
+background-color: black;
+display: grid;
+grid-template-rows: auto auto auto auto auto;
+overflow-y: scroll;
+
+}
+
+.container {
+scroll-snap-type: y mandatory;
+overflow-y: scroll;
+height: 100vh;
+}
+
+section{
+opacity: 0;
+transform: translateY(100px); /* más movimiento para que se note */
+transition: opacity 1s ease-out, transform 1s ease-out;
+will-change: opacity, transform;
+scroll-snap-align: start;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background-image: radial-gradient(
+  circle at center, /* Forma del gradiente: círculo, posición: centro */
+  rgba(50, 50, 50, 0.4) 0%, /* Color del centro (gris oscuro, semi-transparente) */
+  rgba(0, 0, 0, 0) 70%    /* Color exterior (completamente transparente) */
+);
+}
+
+section.visible {
+opacity: 1;
+transform: translateY(0);
+}
+/*---------------------FAST LAPS-----------------*/
+.five{
+display: flex;
+flex-direction: column;
+}
+.five h1 {
+text-align: left;
+}
+.five .vueltas{
+margin: 6%;
+}
+svg {
+width: 100%;
+height: 100%;
+transform: rotate(-90deg);
+overflow: visible; /* ✅ Asegura que todo se vea */
+}
+circle {
+fill: none;
+stroke-width: 20;
+transition: stroke-dashoffset 1s linear;
+}
+.counter {
+position: absolute;
+top: 54%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-family: 'Noto Sans', sans-serif; /* Fuente para el contador */
+font-size: 28px;
+font-weight: bold;
+color: #FF9800;
+z-index: 10; /* ✅ Queda sobre los círculos */
+pointer-events: none;
 }
 
 /*<----------- TIPOGRÁFIAS -------------------->*/
 h1 {
-    font-family:'Audiowide', sans-serif;
-    color: white;
-    font-size: clamp(8rem, 12vw, 10rem); /* ajusta entre 32px y 64px según el ancho */
+  font-family:'Audiowide', sans-serif;
+  color: white;
+  font-size: clamp(2rem, 4vw, 3rem); /* ajusta entre 32px y 64px según el ancho */
 }
 h2{
-    font-family: 'Noto Sans', sans-serif;
-    font-style: italic;
-    color: white;
-    font-weight: 400;
-    font-size: clamp(2rem, 5vw, 3rem); /* ajusta entre 32px y 48px según el ancho */
+  font-family: 'Noto Sans', sans-serif;
+  font-style: italic;
+  color: white;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3rem); /* ajusta entre 32px y 48px según el ancho */
 }

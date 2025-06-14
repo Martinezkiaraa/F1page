@@ -8,42 +8,131 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="icon" href="logo-F1.png" type="image/x-icon">
-    <title>F1</title>
+    <title>Trabajo Final - Visualización de Datos</title>
 </head>
 <header>
-  <!-- VIDEO DE FONDO -->
-  <video autoplay muted loop>
-    <source src="opening.mp4" type="video/mp4">
-  </video>
-  <!-- FONDO DE PANTALLA CON VIDEO -->
-    <div class="overlay"></div> 
-  <!-- CONTENIDO ENCIMA DEL VIDEO -->
-  <div class="contenido">
-    <div></div>
-    <div>    <h1 class="title">F1</h1>
-      <h2 class="subtitle">en movimiento</h2></div>
-    <div></div>
-  </div>
-  <!-- Gradiente al fondo -->
-  <div class="gradient-overlay"></div>
+  <iframe class ="background" style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/Sp1SDiGeC9C7nYFv9XyH6x/Visualizaci%C3%B3n-de-Datos?page-id=295%3A93&node-id=383-172&p=f&viewport=-1495%2C-3362%2C0.76&scaling=contain&content-scaling=fixed&starting-point-node-id=383%3A2&embed-host=share" allowfullscreen></iframe>
 </header>
 <body>
-    <div class="escuderias">
+
+    <div class="container">
+      <section class="one">
+        <h1>Los Equipos</h1>
+        <div class="tarjetas"></div>
+      </section>
+      <section class="two">
+        <h1>Los protagonistas</h1>
+      </section>
+      <section class="three">
+        <h1> ¿Qué paso durante la temporada?</h1>
+      </section>
+      <section class="four">
+        <h1> Hablemos de todos</h1>
+      </section>
+      <section class="five">
+        <h1> El más rápido gana...?</h1>
+        <div class="vueltas">
+          <svg viewBox="0 0 420 420" id="svg">
+            <!-- Círculos generados por JS -->
+          </svg>
+          <div class="counter" id="counter">0s</div>
+        </div>
+      </section>
+      <section class="six">
+        <h1> Accidentes..</h1>
+      </section>
+      <section class="seven">
+        <h1> Pit Stops</h1>
+      </section>
+      <section class="eight">
+        <h1> Y... dónde quedamos?</h1>
+      </section>
     </div>
-    <div class="v1">
-    </div>
-    <div class="v2">
-        <h2>Latest News</h2>
-        <p>Stay tuned for the latest updates in the world of Formula 1.</p>
-    </div>
-    <div class="v3">
-    </div>
-    <div class="v4">
-    </div>
-    <div class="v5">
-    </div>
-    <div class="v6">
-    </div>
+  
     <footer></footer>
+    <script>
+      const svg = document.getElementById('svg');
+  const counter = document.getElementById('counter');
+
+  const totalCircles = 10;
+  const baseDuration = 10; // en segundos (para el círculo más externo)
+  const stepDuration = 4;  // más duración cuanto más adentro
+  const stepBetween = 30;
+  const minRadius = 50;
+  const maxRadius = minRadius + (totalCircles - 1) * stepBetween;
+
+  const centerX = 210;
+  const centerY = 210;
+
+  const circles = [];
+
+  for (let i = 0; i < totalCircles; i++) {
+    const radius = maxRadius - i * stepBetween;
+    const duration = baseDuration + (totalCircles - 1 - i) * stepDuration;
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", centerX);
+    circle.setAttribute("cy", centerY);
+    circle.setAttribute("r", radius);
+    circle.setAttribute("stroke", i === totalCircles - 1 ? "#FF9800" : "#ccc");
+
+    svg.appendChild(circle);
+
+    const circumference = 2 * Math.PI * radius;
+    circle.style.strokeDasharray = `${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+
+    circles.push({ element: circle, duration, circumference, startTime: null });
+  }
+
+  // ⏱ CONTADOR numérico (independiente)
+  let seconds = 0;
+  counter.textContent = `${seconds}s`;
+  const counterInterval = setInterval(() => {
+    seconds++;
+    counter.textContent = `${seconds}s`;
+  }, 100);
+
+  // 🌀 ANIMACIÓN de círculos (independiente)
+  function animateCircles(timestamp) {
+    let allDone = true;
+
+    circles.forEach(circle => {
+      if (!circle.startTime) circle.startTime = timestamp;
+
+      const elapsed = (timestamp - circle.startTime) / 1000; // en segundos
+      const progress = Math.min(elapsed / circle.duration, 1);
+      const offset = circle.circumference * (1 - progress);
+
+      circle.element.style.strokeDashoffset = offset;
+
+      if (progress < 1) allDone = false;
+    });
+
+    if (!allDone) {
+      requestAnimationFrame(animateCircles);
+    } else {
+      clearInterval(counterInterval); // detener el contador si querés
+    }
+  }
+
+  requestAnimationFrame(animateCircles);
+
+      const sections = document.querySelectorAll("section");
+    
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, {
+        threshold: 0.25 // cuando al menos el 25% de la sección sea visible
+      });
+    
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    </script>
 </body>
 </html>

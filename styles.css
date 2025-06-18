@@ -11,75 +11,145 @@ justify-items: center;
 width:100%; /* Altura del header */
 height: 910px;
 }
-/*<---------------------- INICIO ----------------->*/
 body{
-background-color: black;
-display: grid;
-grid-template-rows: auto auto auto auto auto;
-overflow-y: scroll;
-
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.9);
 }
-
+  
 .container {
-scroll-snap-type: y mandatory;
-overflow-y: scroll;
-height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(100, 100, 100, 0.2) 0%,
+    rgba(0, 0, 0, 1) 80%
+  );
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  }
+/*<---------------------- TARJETAS ----------------->*/
+.one{
+  margin: 5%
 }
-
-section{
-opacity: 0;
-transform: translateY(100px); /* más movimiento para que se note */
-transition: opacity 1s ease-out, transform 1s ease-out;
-will-change: opacity, transform;
-scroll-snap-align: start;
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-background-image: radial-gradient(
-  circle at center, /* Forma del gradiente: círculo, posición: centro */
-  rgba(50, 50, 50, 0.4) 0%, /* Color del centro (gris oscuro, semi-transparente) */
-  rgba(0, 0, 0, 0) 70%    /* Color exterior (completamente transparente) */
-);
-}
-
-section.visible {
-opacity: 1;
-transform: translateY(0);
+/*<---------------------- BURBUJAS ----------------->*/
+.two {
+  top: 0;
+  left: 0;
+  z-index: -1;
+  margin: 10%;
+  justify-content: center;
 }
 /*---------------------FAST LAPS-----------------*/
-.five{
-display: flex;
-flex-direction: column;
+.three{
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: white;
 }
-.five h1 {
-text-align: left;
+.top-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.five .vueltas{
-margin: 6%;
+
+.bottom-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20%;
 }
+
+.circles-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 40px;
+  align-items: center;
+  justify-items: center;
+}
+
+.circle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.circle-item svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+
+.circle-info {
+  text-align: center;
+  font-family: 'Orbitron', monospace;
+}
+
+.circle-name {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.circle-time {
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  color: #ccc;
+}
+
 svg {
-width: 100%;
-height: 100%;
-transform: rotate(-90deg);
-overflow: visible; /* ✅ Asegura que todo se vea */
+  width: 600px;
+  height: 600px;
+  transform: rotate(-90deg);
 }
-circle {
-fill: none;
-stroke-width: 20;
-transition: stroke-dashoffset 1s linear;
+
+.circle {
+  fill: none;
+  stroke-width: 20;
+  stroke-dasharray: 0 999;
+  stroke-linecap: round;
+  transform-origin: center;
+  will-change: stroke-dasharray;
 }
-.counter {
-position: absolute;
-top: 54%;
-left: 50%;
-transform: translate(-50%, -50%);
-font-family: 'Noto Sans', sans-serif; /* Fuente para el contador */
-font-size: 28px;
-font-weight: bold;
-color: #FF9800;
-z-index: 10; /* ✅ Queda sobre los círculos */
-pointer-events: none;
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Orbitron', monospace;
+  will-change: contents;
+  transform: translateZ(0);
+}
+
+.team-name {
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.team-time {
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /*<----------- TIPOGRÁFIAS -------------------->*/
@@ -87,6 +157,7 @@ h1 {
   font-family:'Audiowide', sans-serif;
   color: white;
   font-size: clamp(2rem, 4vw, 3rem); 
+  text-align: center;
 }
 h2{
   font-family: 'Noto Sans', sans-serif;
@@ -94,4 +165,9 @@ h2{
   color: white;
   font-weight: 400;
   font-size: clamp(2rem, 5vw, 3rem); /* ajusta entre 32px y 48px según el ancho */
+}
+p{
+  font-size: 24px; 
+  line-height: 1.8;
+  font-family: 'Noto Sans', sans-serif;
 }

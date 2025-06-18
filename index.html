@@ -5,134 +5,344 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="icon" href="logo-F1.png" type="image/x-icon">
     <title>Trabajo Final - Visualización de Datos</title>
 </head>
 <header>
   <iframe class ="background" style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/Sp1SDiGeC9C7nYFv9XyH6x/Visualizaci%C3%B3n-de-Datos?page-id=295%3A93&node-id=383-172&p=f&viewport=-1495%2C-3362%2C0.76&scaling=contain&content-scaling=fixed&starting-point-node-id=383%3A2&embed-host=share" allowfullscreen></iframe>
 </header>
-<body>
-
+<body>  
     <div class="container">
-      <section class="one">
-        <h1>Los Equipos</h1>
-        <div class="tarjetas"></div>
-      </section>
-      <section class="two">
-        <h1>Los protagonistas</h1>
-      </section>
-      <section class="three">
-        <h1> ¿Qué paso durante la temporada?</h1>
-      </section>
-      <section class="four">
-        <h1> Hablemos de todos</h1>
-      </section>
-      <section class="five">
-        <h1> El más rápido gana...?</h1>
-        <div class="vueltas">
-          <svg viewBox="0 0 420 420" id="svg">
-            <!-- Círculos generados por JS -->
-          </svg>
-          <div class="counter" id="counter">0s</div>
+
+      <div class="one">
+        <h1> Los protagonistas </h1>
+        <div class="flourish-embed flourish-cards" data-src="visualisation/23787054"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/23787054/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
+      </div>
+
+      <div class="two">
+        <h1>Temporada 2024: El año <strong style="color: #FF8000;">naranja</strong></h1>
+        <div id="burbujas">
+          <div class="flourish-embed" data-src="story/3173417" data-url="https://flo.uri.sh/story/3173417/embed"data-height="100vh">
+            <script src="https://public.flourish.studio/resources/embed.js"></script>
+          </div>
+  
+          <!-- Slide 1: Victoria de McLaren -->
+          <p class="highlight-section">
+            <strong style="color: #FF8000;">La temporada 2024 quedó marcada en naranja</strong>, el color del renacimiento.
+            McLaren volvió a reinar tras más de una década de sequía, destronando a gigantes como Red Bull y Ferrari.
+            <br><br>
+            <strong>6 victorias, 21 podios y 666 puntos</strong> sellaron un campeonato inolvidable para la escudería británica.
+            <a href="#story/3173417/slide-1"></a>
+          </p>
+        
+          <!-- Slide 2: Protagonistas - Equipo McLaren -->
+          <div class="recto izq">
+            <p>
+              <span style="font-family: 'Canva Sans Variable', sans-serif; font-size: bold;">McLaren: una dupla explosiva</span>. 
+              Bajo la dirección de Andrea Stella y el avance técnico del <strong>MCL38</strong>, 
+              el equipo encontró el balance perfecto entre velocidad y fiabilidad. 
+              <br><span style="color: #FF8000;">Más del 85% de las carreras puntuaron con ambos autos</span>, 
+              consolidando una estrategia de equipo que no dejó margen a errores.
+            </p>
+            <a href="#story/3173417/slide-2"></a>
+          </div>
+  
+          <!-- Slide 3: Trayectoria individual - Norris -->
+          <p>
+            <span>Lando Norris: La consagración de un talento</span>. Desde su debut en 2019, Lando había mostrado destellos de genialidad. Pero fue en 2024 cuando, finalmente, todo se alineó. Constancia, agresividad inteligente y madurez emocional lo convirtieron en un referente indiscutido.
+            <span class="conFondo">"Mejorar cada vuelta, cada carrera. Ese fue el objetivo." – Norris</span>
+            <a href="#story/3173417/slide-3"></a>
+          </p>
+  
+          <!-- Slide 3: Trayectoria individual - Piastri  -->
+          <div class="recto der">
+            <p>
+              <span>Oscar Piastri: El joven que desafió a los grandes</span>. En solo su segundo año en F1, el australiano mostró un temple y control sorprendentes. Su crecimiento fue meteórico, aportando puntos vitales y presionando incluso a los favoritos en pista.
+            </p>
+            <a href="#story/3173417/slide-3"></a>
+          </div>
         </div>
-      </section>
-      <section class="six">
-        <h1> Accidentes..</h1>
-      </section>
-      <section class="seven">
-        <h1> Pit Stops</h1>
-      </section>
-      <section class="eight">
-        <h1> Y... dónde quedamos?</h1>
-      </section>
+      </div>
+
+      <div class="three">
+        <h1>El Pulso de la Velocidad</h1>
+        <div class="top-section">
+          <svg viewBox="0 0 600 600"></svg>
+          <div class="labels" id="labels"></div>
+        </div>
+        
+        <div class="bottom-section">
+          <div class="circles-grid" id="circlesGrid"></div>
+        </div>
+        <script>
+          const teams = [
+            { name: "Red Bull", time: 100.345 },
+            { name: "Ferrari", time: 101.678 },
+            { name: "Mercedes", time: 102.234 },
+            { name: "McLaren", time: 101.345 },
+            { name: "Aston Martin", time: 103.123 },
+            { name: "Alpine", time: 104.456 },
+            { name: "Williams", time: 105.345 },
+            { name: "AlphaTauri", time: 106.234 },
+            { name: "Haas", time: 107.345 },
+            { name: "Sauber", time: 108.789 }
+          ];
+      
+          const svg = document.querySelector("svg");
+          const labelContainer = document.getElementById("labels");
+          const circlesGrid = document.getElementById("circlesGrid");
+      
+          const minTime = Math.min(...teams.map(t => t.time));
+          const maxTime = Math.max(...teams.map(t => t.time));
+      
+          const baseRadius = 60;
+          const spacing = 18;
+          const centerX = 300;
+          const centerY = 300;
+      
+          const animationElements = [];
+          const gridAnimationElements = [];
+      
+          // Crear círculos concéntricos (sección superior)
+          teams
+            .sort((a, b) => a.time - b.time)
+            .forEach((team, index) => {
+              const radius = baseRadius + index * spacing;
+              const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              const circumference = 2 * Math.PI * radius;
+      
+              const relative = (team.time - minTime) / (maxTime - minTime);
+              const duration = 2000 + relative * 8000;
+      
+              // Solo McLaren tiene color naranja
+              const strokeColor = team.name === "McLaren" ? "#FF8700" : `hsl(0, 0%, ${30 + index * 5}%)`;
+      
+              circle.setAttribute("cx", centerX);
+              circle.setAttribute("cy", centerY);
+              circle.setAttribute("r", radius);
+              circle.setAttribute("stroke", strokeColor);
+              circle.setAttribute("class", "circle");
+      
+              circle.style.strokeDasharray = `0 ${circumference}`;
+              circle.style.transition = `stroke-dasharray ${duration}ms ease-out`;
+              
+              // Forzar el reflow antes de cambiar el valor
+              circle.getBoundingClientRect();
+      
+              svg.appendChild(circle);
+      
+              // Crear etiquetas para la sección superior
+              const label = document.createElement("div");
+              label.className = "label";
+      
+              const dot = document.createElement("span");
+              dot.className = "dot";
+              dot.style.backgroundColor = strokeColor;
+      
+              const text = document.createElement("span");
+              text.className = "team-name";
+              text.textContent = team.name;
+      
+              const timeDisplay = document.createElement("span");
+              timeDisplay.className = "team-time";
+              const startTime = 104;
+              timeDisplay.textContent = formatTime(startTime);
+      
+              label.appendChild(dot);
+              label.appendChild(text);
+              label.appendChild(timeDisplay);
+              labelContainer.appendChild(label);
+      
+              // Guardar elementos para la animación
+              animationElements.push({
+                circle,
+                textEl: timeDisplay,
+                team,
+                duration,
+                circumference,
+                startTime: startTime
+              });
+      
+              // Iniciar animación del círculo después de un pequeño delay
+              setTimeout(() => {
+                circle.style.strokeDasharray = `${circumference} 0`;
+              }, 100);
+            });
+      
+          // Crear círculos de grilla (sección inferior)
+          teams
+            .sort((a, b) => a.time - b.time)
+            .forEach((team, index) => {
+              const circleItem = document.createElement("div");
+              circleItem.className = "circle-item";
+      
+              // Crear SVG individual para cada círculo
+              const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              svg.setAttribute("viewBox", "0 0 120 120");
+      
+              const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              const radius = 50;
+              const circumference = 2 * Math.PI * radius;
+      
+              const relative = (team.time - minTime) / (maxTime - minTime);
+              const duration = 2000 + relative * 8000;
+      
+              // Solo McLaren tiene color naranja
+              const strokeColor = team.name === "McLaren" ? "#FF8700" : "#666";
+      
+              circle.setAttribute("cx", "60");
+              circle.setAttribute("cy", "60");
+              circle.setAttribute("r", radius);
+              circle.setAttribute("stroke", strokeColor);
+              circle.setAttribute("fill", "none");
+              circle.setAttribute("stroke-width", "8");
+              circle.setAttribute("stroke-linecap", "round");
+      
+              circle.style.strokeDasharray = `0 ${circumference}`;
+              circle.style.transition = `stroke-dasharray ${duration}ms ease-out`;
+      
+              svg.appendChild(circle);
+      
+              // Crear información del círculo
+              const circleInfo = document.createElement("div");
+              circleInfo.className = "circle-info";
+      
+              const circleName = document.createElement("div");
+              circleName.className = "circle-name";
+              circleName.textContent = team.name;
+      
+              const circleTime = document.createElement("div");
+              circleTime.className = "circle-time";
+              const startTime = 104;
+              circleTime.textContent = formatTime(startTime);
+      
+              circleInfo.appendChild(circleName);
+              circleInfo.appendChild(circleTime);
+      
+              circleItem.appendChild(svg);
+              circleItem.appendChild(circleInfo);
+              circlesGrid.appendChild(circleItem);
+      
+              // Guardar elementos para la animación
+              gridAnimationElements.push({
+                circle,
+                textEl: circleTime,
+                team,
+                duration,
+                circumference,
+                startTime: startTime
+              });
+      
+              // Iniciar animación del círculo después de un pequeño delay
+              setTimeout(() => {
+                circle.style.strokeDasharray = `${circumference} 0`;
+              }, 100);
+            });
+      
+          function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = (seconds % 60).toFixed(3).padStart(6, "0");
+            return `${mins}:${secs}`;
+          }
+      
+          function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+          }
+      
+          function animateCountdown() {
+            const globalStart = performance.now() + 100;
+      
+            // Animar elementos de la sección superior
+            animationElements.forEach(element => {
+              let lastElementUpdate = 0;
+              const elementFrameInterval = 50;
+              
+              function updateElement(now) {
+                const elapsed = now - globalStart;
+                const progress = Math.min(Math.max(elapsed / element.duration, 0), 1);
+                
+                if (now - lastElementUpdate >= elementFrameInterval || progress >= 1) {
+                  if (progress >= 0) {
+                    const easedProgress = easeOutCubic(progress);
+                    const currentTime = element.startTime - (element.startTime - element.team.time) * easedProgress;
+                    const formattedTime = formatTime(currentTime);
+                    
+                    if (element.textEl.textContent !== formattedTime) {
+                      element.textEl.textContent = formattedTime;
+                    }
+                  }
+                  lastElementUpdate = now;
+                }
+      
+                if (progress < 1) {
+                  requestAnimationFrame(updateElement);
+                }
+              }
+      
+              requestAnimationFrame(updateElement);
+            });
+      
+            // Animar elementos de la grilla inferior
+            gridAnimationElements.forEach(element => {
+              let lastElementUpdate = 0;
+              const elementFrameInterval = 50;
+              
+              function updateElement(now) {
+                const elapsed = now - globalStart;
+                const progress = Math.min(Math.max(elapsed / element.duration, 0), 1);
+                
+                if (now - lastElementUpdate >= elementFrameInterval || progress >= 1) {
+                  if (progress >= 0) {
+                    const easedProgress = easeOutCubic(progress);
+                    const currentTime = element.startTime - (element.startTime - element.team.time) * easedProgress;
+                    const formattedTime = formatTime(currentTime);
+                    
+                    if (element.textEl.textContent !== formattedTime) {
+                      element.textEl.textContent = formattedTime;
+                    }
+                  }
+                  lastElementUpdate = now;
+                }
+      
+                if (progress < 1) {
+                  requestAnimationFrame(updateElement);
+                }
+              }
+      
+              requestAnimationFrame(updateElement);
+            });
+          }
+      
+          // Iniciar la animación de cuenta regresiva
+          animateCountdown();
+        </script>
+      </div>
+
+      <div class="seven">
+        <h1> Y... ¿dónde quedamos?</h1>
+        <div
+          class="flourish-embed"
+          data-src="story/3176099"
+          data-url="https://flo.uri.sh/story/3176099/embed"
+          data-height="100vh"
+        >
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+        </div>
+      </div>
+    
     </div>
   
     <footer></footer>
-    <script>
-      const svg = document.getElementById('svg');
-  const counter = document.getElementById('counter');
-
-  const totalCircles = 10;
-  const baseDuration = 10; // en segundos (para el círculo más externo)
-  const stepDuration = 4;  // más duración cuanto más adentro
-  const stepBetween = 30;
-  const minRadius = 50;
-  const maxRadius = minRadius + (totalCircles - 1) * stepBetween;
-
-  const centerX = 210;
-  const centerY = 210;
-
-  const circles = [];
-
-  for (let i = 0; i < totalCircles; i++) {
-    const radius = maxRadius - i * stepBetween;
-    const duration = baseDuration + (totalCircles - 1 - i) * stepDuration;
-
-    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", centerX);
-    circle.setAttribute("cy", centerY);
-    circle.setAttribute("r", radius);
-    circle.setAttribute("stroke", i === totalCircles - 1 ? "#FF9800" : "#ccc");
-
-    svg.appendChild(circle);
-
-    const circumference = 2 * Math.PI * radius;
-    circle.style.strokeDasharray = `${circumference}`;
-    circle.style.strokeDashoffset = circumference;
-
-    circles.push({ element: circle, duration, circumference, startTime: null });
-  }
-
-  // ⏱ CONTADOR numérico (independiente)
-  let seconds = 0;
-  counter.textContent = `${seconds}s`;
-  const counterInterval = setInterval(() => {
-    seconds++;
-    counter.textContent = `${seconds}s`;
-  }, 100);
-
-  // 🌀 ANIMACIÓN de círculos (independiente)
-  function animateCircles(timestamp) {
-    let allDone = true;
-
-    circles.forEach(circle => {
-      if (!circle.startTime) circle.startTime = timestamp;
-
-      const elapsed = (timestamp - circle.startTime) / 1000; // en segundos
-      const progress = Math.min(elapsed / circle.duration, 1);
-      const offset = circle.circumference * (1 - progress);
-
-      circle.element.style.strokeDashoffset = offset;
-
-      if (progress < 1) allDone = false;
-    });
-
-    if (!allDone) {
-      requestAnimationFrame(animateCircles);
-    } else {
-      clearInterval(counterInterval); // detener el contador si querés
-    }
-  }
-
-  requestAnimationFrame(animateCircles);
-
-      const sections = document.querySelectorAll("section");
-    
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, {
-        threshold: 0.25 // cuando al menos el 25% de la sección sea visible
-      });
-    
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    </script>
+    <script src ="utils.js"></script>
+    <!-- Agregar la libreria (antes de tu javascript) que hara posible el paso de los textos al scrollear -->
+    <script src="https://cdn.flourish.rocks/flourish-scrolly-v3.1.0.min.js" type="text/javascript"></script>
+    <!-- En este index.js esta el javascript para activar los botones de los videos de Messi -->
+    <script src="index.js"></script>
+    <!-- En este slider.js este el javascript para activar el swipe izquierda/derecha en mobile. Para verlo achicar la pantalla a menos de 600px -->
+    <script src="slider.js"></script>
+    <!-- Inicializa la biblioteca para convertir tu historia en magia de desplazamiento -->
+    <script type="text/javascript">initFlourishScrolly()</script>
 </body>
 </html>

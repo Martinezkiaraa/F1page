@@ -46,6 +46,8 @@ body{
   color: white;
 }
 .top-section {
+  position: relative;
+  z-index: -1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -59,6 +61,17 @@ body{
   margin: 5%;
 }
 
+.timer-container {
+  position: absolute;
+  text-align: right;
+  margin: 5% 20% 0% 50%;
+  z-index: 10;
+}
+#main-timer {
+  font-size: 2rem;
+  font-family: 'Audiowide', sans-serif;
+  color: #FF8000; /* Color naranja para destacar */
+}
 .circles-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -119,14 +132,27 @@ svg {
   font-size: 1.1rem;
   color: white;
 }
-
 .label {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.label.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.label.visible {
+  opacity: 1;
+  visibility: visible;
   display: flex;
   align-items: center;
   gap: 12px;
   font-family: 'Noto Sans', sans-serif;
   will-change: contents;
-  transform: translateZ(0);
+  transform: translateY(0);
 }
 
 .team-name {

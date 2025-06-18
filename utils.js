@@ -1,64 +1,115 @@
-const svg = document.getElementById('svg');
-const counter = document.getElementById('counter');
+const teams = [
+  { name: "Red Bull", time: 101.200 },
+  { name: "Ferrari", time: 101.800 },
+  { name: "Mercedes", time: 101.420 },
+  { name: "McLaren", time: 101.345 },
+  { name: "Aston Martin", time: 100.800 },
+  { name: "Alpine", time: 103.756 },
+  { name: "Williams", time: 105.345 },
+  { name: "AlphaTauri", time: 106.234 },
+  { name: "Haas", time: 102.600 },
+  { name: "Sauber", time: 108.789 }
+];
 
-const totalCircles = 10;
-const baseDuration = 10; // en segundos (para el círculo más externo)
-const stepDuration = 4;  // más duración cuanto más adentro
-const stepBetween = 30;
-const minRadius = 50;
-const maxRadius = minRadius + (totalCircles - 1) * stepBetween;
+const svg = document.querySelector("svg");
+const labelContainer = document.getElementById("labels");
+const circlesGrid = document.getElementById("circlesGrid");
 
-const centerX = 210;
-const centerY = 210;
+const minTime = Math.min(...teams.map(t => t.time));
+const maxTime = Math.max(...teams.map(t => t.time));
 
-const circles = [];
+const baseRadius = 60;
+const spacing = 18;
+const centerX = 300;
+const centerY = 300;
 
-for (let i = 0; i < totalCircles; i++) {
-  const radius = maxRadius - i * stepBetween;
-  const duration = baseDuration + (totalCircles - 1 - i) * stepDuration;
+const animationElements = [];
 
-  const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-  circle.setAttribute("cx", centerX);
-  circle.setAttribute("cy", centerY);
-  circle.setAttribute("r", radius);
-  circle.setAttribute("stroke", i === totalCircles - 1 ? "#FF9800" : "#ccc");
+// Crear círculos concéntricos para todas las escuderías
+teams
+  .sort((a, b) => a.time - b.time)
+  .forEach((team, index) => {
+    const radius = baseRadius + index * spacing;
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    const circumference = 2 * Math.PI * radius;
 
-  svg.appendChild(circle);
+    const relative = (team.time - minTime) / (maxTime - minTime);
+    const duration = 2000 + relative * 8000;
 
-  const circumference = 2 * Math.PI * radius;
-  circle.style.strokeDasharray = `${circumference}`;
-  circle.style.strokeDashoffset = circumference;
+    // Solo McLaren tiene color naranja
+    const strokeColor = team.name === "McLaren" ? "#FF8700" : `hsl(0, 0%, ${30 + index * 5}%)`;
 
-  circles.push({ element: circle, duration, circumference, startTime: null });
-}
+    circle.setAttribute("cx", centerX);
+    circle.setAttribute("cy", centerY);
+    circle.setAttribute("r", radius);
+    circle.setAttribute("stroke", strokeColor);
+    circle.setAttribute("class", "circle");
 
-// ⏱ CONTADOR numérico (independiente)
-let seconds = 0;
-counter.textContent = `${seconds}s`;
-const counterInterval = setInterval(() => {
-  seconds++;
-  counter.textContent = `${seconds}s`;
-}, 100);
+    circle.style.strokeDasharray = `0 ${circumference}`;
+    circle.style.transition = `stroke-dasharray ${duration}ms ease-out`;
 
-// 🌀 ANIMACIÓN de círculos (independiente)
-function animateCircles(timestamp) {
-  let allDone = true;
+    svg.appendChild(circle);
 
-  circles.forEach(circle => {
-    if (!circle.startTime) circle.startTime = timestamp;
+    // Crear etiquetas para cada escudería
+    const label = document.createElement("div");
+    label.className = "label";
 
-    const elapsed = (timestamp - circle.startTime) / 1000; // en segundos
-    const progress = Math.min(elapsed / circle.duration, 1);
-    const offset = circle.circumference * (1 - progress);
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.style.backgroundColor = strokeColor;
 
-    circle.element.style.strokeDashoffset = offset;
+    const text = document.createElement("span");
+    text.className = "team-name";
+    text.textContent = team.name;
 
-    if (progress < 1) allDone = false;
+    const timeDisplay = document.createElement("span");
+    timeDisplay.className = "team-time";
+    timeDisplay.textContent = "0:00.000"; // Inicializar en 0
+
+    label.appendChild(dot);
+    label.appendChild(text);
+    label.appendChild(timeDisplay);
+    labelContainer.appendChild(label);
+
+    // Guardar elementos para la animación
+    animationElements.push({
+      circle,
+      textEl: timeDisplay,
+      team,
+      duration,
+      circumference,
+      startTime: team.time
+    });
+
+    // Iniciar animación del círculo después de un pequeño delay
+    setTimeout(() => {
+      circle.style.strokeDasharray = `${circumference} 0`;
+      animateCountdown(timeDisplay, team.time, duration);
+    }, 100);
   });
 
-  if (!allDone) {
-    requestAnimationFrame(animateCircles);
-  } else {
-    clearInterval(counterInterval); // detener el contador si querés
+// Función para animar el contador
+function animateCountdown(element, finalTime, duration) {
+  const startTime = 0;
+  const startTimestamp = performance.now();
+
+  function updateCounter(now) {
+    const elapsed = now - startTimestamp;
+    const progress = Math.min(elapsed / duration, 1);
+    const currentTime = startTime + (finalTime - startTime) * progress;
+
+    element.textContent = formatTime(currentTime);
+
+    if (progress < 1) {
+      requestAnimationFrame(updateCounter);
+    }
   }
+
+  requestAnimationFrame(updateCounter);
+}
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = (seconds % 60).toFixed(3).padStart(6, "0");
+  return `${mins}:${secs}`;
 }

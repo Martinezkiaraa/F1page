@@ -41,6 +41,7 @@ body{
   z-index: -1;
   margin: 10%;
   justify-content: center;
+  color: white;
 }
 /*---------------------FAST LAPS-----------------*/
 .three{
@@ -171,7 +172,7 @@ footer{
 h1 {
   font-family:'Audiowide', sans-serif;
   color: white;
-  font-size: clamp(32px, 4vw, 3rem); 
+  font-size: clamp(24px, 4vw, 36px);
   text-align: center;
 }
 h2{
@@ -182,7 +183,7 @@ h2{
   font-size: clamp(2rem, 5vw, 3rem); /* ajusta entre 32px y 48px según el ancho */
 }
 p{
-  font-size:  clamp(18px, 2vw, 20px); 
+  font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.5;
   font-family: 'Noto Sans', sans-serif;
   text-align: center;

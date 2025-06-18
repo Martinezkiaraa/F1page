@@ -11,9 +11,13 @@ const teams = [
   { name: "Sauber", time: 108.789 }
 ];
 
-const svg = document.querySelector("svg");
-const labelContainer = document.getElementById("labels");
-const circlesGrid = document.getElementById("circlesGrid");
+// Elementos para top-section
+const topSectionSvg = document.querySelector(".top-section svg");
+const topSectionLabels = document.querySelector(".top-section .labels");
+
+// Elementos para bottom-section
+const bottomSectionGrid = document.getElementById("circlesGrid");
+
 const mainTimer = document.getElementById("main-timer"); // Timer principal
 
 const minTime = Math.min(...teams.map(t => t.time));
@@ -49,7 +53,7 @@ teams
     circle.style.strokeDasharray = `0 ${circumference}`;
     circle.style.transition = `stroke-dasharray ${duration}ms ease-out`;
 
-    svg.appendChild(circle);
+    topSectionSvg.appendChild(circle);
 
     // Crear etiquetas para cada escudería
     const label = document.createElement("div");
@@ -70,7 +74,7 @@ teams
     label.appendChild(dot);
     label.appendChild(text);
     label.appendChild(timeDisplay);
-    labelContainer.appendChild(label);
+    topSectionLabels.appendChild(label);
 
     // Guardar elementos para la animación
     animationElements.push({
@@ -175,3 +179,123 @@ function formatTime(seconds) {
   const secs = (seconds % 60).toFixed(3).padStart(6, "0");
   return `${mins}:${secs}`;
 }
+
+// --- Código fusionado de circles.js para los pit stops ---
+const teamsPit = [
+    { name: "Red Bull", time: 101.200 },
+    { name: "Ferrari", time: 101.800 },
+    { name: "Mercedes", time: 101.420 },
+    { name: "McLaren", time: 101.345 },
+    { name: "Aston Martin", time: 100.800 },
+    { name: "Alpine", time: 103.756 },
+    { name: "Williams", time: 105.345 },
+    { name: "AlphaTauri", time: 106.234 },
+    { name: "Haas", time: 102.600 },
+    { name: "Sauber", time: 108.789 }
+  ];
+
+const circlesGrid = document.getElementById("circlesGrid");
+
+const maxPitTime = Math.max(...teamsPit.map(t => t.time));
+
+function createCircles() {
+  if (!circlesGrid) return;
+  circlesGrid.innerHTML = ""; // Limpiar el contenedor antes de reiniciar
+
+  teamsPit.forEach((team, index) => {
+    const circleItem = document.createElement("div");
+    circleItem.className = "circle-item";
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 120 120");
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    const radius = 50;
+    const circumference = 2 * Math.PI * radius;
+
+    // Duración proporcional al tiempo de cada equipo
+    const duration = (team.time / maxPitTime) * 15000;
+
+    // Color inicial: McLaren es naranja, el resto gris
+    const strokeColor = team.name === "McLaren" ? "#FF8000" : "#666";
+
+    circle.setAttribute("cx", "60");
+    circle.setAttribute("cy", "60");
+    circle.setAttribute("r", radius);
+    circle.setAttribute("stroke", strokeColor);
+    circle.setAttribute("fill", "none");
+    circle.setAttribute("stroke-width", "8");
+    circle.setAttribute("stroke-linecap", "round");
+
+    circle.style.strokeDasharray = `0 ${circumference}`;
+    circle.style.transition = `stroke-dasharray ${duration}ms ease-out`;
+
+    svg.appendChild(circle);
+
+    // Información del círculo (nombre y tiempo)
+    const circleInfo = document.createElement("div");
+    circleInfo.className = "circle-info";
+
+    const circleName = document.createElement("div");
+    circleName.className = "circle-name";
+    circleName.textContent = team.name;
+
+    const circleTime = document.createElement("div");
+    circleTime.className = "circle-time";
+    circleTime.textContent = formatTimePit(0); // Inicializar en 0
+
+    circleInfo.appendChild(circleName);
+    circleInfo.appendChild(circleTime);
+
+    circleItem.appendChild(svg);
+    circleItem.appendChild(circleInfo);
+    circlesGrid.appendChild(circleItem);
+
+    // Animar el círculo y el timer
+    setTimeout(() => {
+      circle.style.strokeDasharray = `${circumference} 0`;
+      animateCircleTimer(circleTime, team.time, duration);
+
+      // Cambiar el color del timer a verde al completar la vuelta
+      setTimeout(() => {
+        circleTime.textContent = formatTimePit(team.time); // Asegura el tiempo final
+        circleTime.style.color = "#00FF00"; // Verde
+      }, duration);
+    }, 100);
+  });
+}
+
+// Función para animar el timer de cada círculo
+function animateCircleTimer(element, finalTime, duration) {
+  const startTime = 0;
+  const startTimestamp = performance.now();
+
+  function updateTimer(now) {
+    const elapsed = now - startTimestamp;
+    const progress = Math.min(elapsed / duration, 1);
+    const currentTime = startTime + (finalTime - startTime) * progress;
+    element.textContent = formatTimePit(currentTime);
+    if (progress < 1) {
+      requestAnimationFrame(updateTimer);
+    }
+  }
+  requestAnimationFrame(updateTimer);
+}
+
+// Función para formatear el tiempo (pit stops)
+function formatTimePit(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = (seconds % 60).toFixed(3).padStart(6, "0");
+  return `${mins}:${secs}`;
+}
+
+// Cambiar el intervalo de reinicio a 25 segundos (15s animación + 10s pausa)
+let circlesTimeout;
+function restartCirclesWithPause() {
+  createCircles();
+  if (circlesTimeout) clearTimeout(circlesTimeout);
+  circlesTimeout = setTimeout(restartCirclesWithPause, 25000); // 25 segundos
+}
+
+// Iniciar la animación con pausa
+restartCirclesWithPause();

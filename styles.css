@@ -158,6 +158,7 @@ svg {
   justify-content: center;
   color: white;
   margin: 10%;
+  row-gap: 10%;
 }
 /*---------------------FOOTER-----------------*/
 footer{

@@ -45,11 +45,9 @@ body{
 /*---------------------FAST LAPS-----------------*/
 .three{
   margin: 10%;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10%;
+  gap: 15%;
   color: white;
 }
 .top-section {
@@ -155,9 +153,11 @@ svg {
   display: inline-block;
 }
 /*---------------------HISTORIA-----------------*/
-.seven h1{
+.seven{
   text-align: center;
   justify-content: center;
+  color: white;
+  margin: 10%;
 }
 /*---------------------FOOTER-----------------*/
 footer{

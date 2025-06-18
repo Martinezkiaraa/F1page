@@ -43,12 +43,12 @@ body{
 }
 /*---------------------FAST LAPS-----------------*/
 .three{
-  margin: 5%;
+  margin: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 10%;
   color: white;
 }
 .top-section {
@@ -153,12 +153,23 @@ svg {
   border-radius: 50%;
   display: inline-block;
 }
-
+/*---------------------HISTORIA-----------------*/
+.seven h1{
+  text-align: center;
+  justify-content: center;
+}
+/*---------------------FOOTER-----------------*/
+footer{
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+}
 /*<----------- TIPOGRÁFIAS -------------------->*/
 h1 {
   font-family:'Audiowide', sans-serif;
   color: white;
-  font-size: clamp(2rem, 4vw, 3rem); 
+  font-size: clamp(32px, 4vw, 3rem); 
   text-align: center;
 }
 h2{
@@ -169,8 +180,9 @@ h2{
   font-size: clamp(2rem, 5vw, 3rem); /* ajusta entre 32px y 48px según el ancho */
 }
 p{
-  font-size: 20px; 
+  font-size:  clamp(18px, 2vw, 20px); 
   line-height: 1.5;
   font-family: 'Noto Sans', sans-serif;
   text-align: center;
+  color: white;
 }

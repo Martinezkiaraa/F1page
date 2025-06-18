@@ -29,7 +29,7 @@ body{
   }
 /*<---------------------- TARJETAS ----------------->*/
 .one{
-  margin: 5%;
+  margin: 10% 10%;
   align-items: center;
   justify-content: center;
   color: white;

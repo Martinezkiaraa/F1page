@@ -141,6 +141,7 @@ function animateCountdown(element, finalTime, duration) {
 
 setInterval(() => {
   const globalStart = performance.now() + 100;
+  const maxDuration = Math.max(...animationElements.map(el => el.duration)); // Duración del círculo más lento
 
   animationElements.forEach(element => {
     element.circle.style.transition = "none";
@@ -156,10 +157,14 @@ setInterval(() => {
     element.circle.getBoundingClientRect();
 
     setTimeout(() => {
+      // Usar la duración individual de cada círculo
       element.circle.style.transition = `stroke-dasharray ${element.duration}ms ease-out`;
       element.circle.style.strokeDasharray = `${element.circumference} 0`;
 
-      // Al completar, mostrar el label de nuevo con tiempo final
+      // Animar el timer individual con su duración específica
+      animateCountdown(element.textEl, element.team.time, element.duration);
+
+      // Al completar cada círculo individual, mostrar su label
       setTimeout(() => {
         label.classList.remove("hidden");
         label.classList.add("visible");
@@ -169,9 +174,9 @@ setInterval(() => {
     }, 100);
   });
 
-  // Reiniciar el main-timer
+  // Reiniciar el main-timer con la duración del círculo más lento
   mainTimer.textContent = "0:00.000";
-  animateMainTimer(maxTime, 14000);
+  animateMainTimer(maxTime, maxDuration);
 }, 16000);
 
 function formatTime(seconds) {
@@ -182,16 +187,16 @@ function formatTime(seconds) {
 
 // --- Código fusionado de circles.js para los pit stops ---
 const teamsPit = [
-    { name: "Red Bull", time: 101.200 },
-    { name: "Ferrari", time: 101.800 },
-    { name: "Mercedes", time: 101.420 },
-    { name: "McLaren", time: 101.345 },
-    { name: "Aston Martin", time: 100.800 },
-    { name: "Alpine", time: 103.756 },
-    { name: "Williams", time: 105.345 },
-    { name: "AlphaTauri", time: 106.234 },
-    { name: "Haas", time: 102.600 },
-    { name: "Sauber", time: 108.789 }
+    { name: "Red Bull", time: 0.19 },
+    { name: "Ferrari", time: 0.194 },
+    { name: "Mercedes", time: 0.212 },
+    { name: "McLaren", time: 0.19 },
+    { name: "Aston Martin", time: 0.234 },
+    { name: "Alpine", time: 0.279 },
+    { name: "Williams", time: 0.239 },
+    { name: "Racing Bulls", time: 0.201 },
+    { name: "Haas", time: 0.251 },
+    { name: "Sauber", time: 0.232 }
   ];
 
 const circlesGrid = document.getElementById("circlesGrid");

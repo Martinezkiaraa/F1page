@@ -63,13 +63,14 @@ img{
 
 /* CITA DEL PILOTO */
 .fl-scrolly-step span.conFondo {
-  color: #0a0a0a;
+  color: #ffffff; /* Letras blancas */
   font-size: 1.1rem;
-  background-color: #ff8000a8;
-  padding: 2px 8px;
-  border-radius: 4px;
+  background-color: #ff8000; /* Fondo naranja sólido */
+  padding: 6px 10px;
+  border-radius: 6px;
   display: inline-block;
   margin-top: 10px;
+  font-family:'Audiowide', sans-serif;
 }
 
 /* ALINEACIÓN DEL BLOQUE IZQUIERDO */
@@ -81,14 +82,24 @@ img{
 .fl-scrolly-section .fl-scrolly-step.der {
   transform: translate3d(100%, 0, 0) !important;
 }
-/*---------------------CIRCUITOS-----------------*/
-.map{
-  text-align: center;
-  justify-content: center;
-  color: white;
-  margin: 10% 20%;
-  row-gap: 10%;
+
+.fl-scrolly-step.citaBox {
+  background-color: #ff8000 !important; /* Fondo naranja */
+  color: #ffffff !important;           /* Texto blanco */
+  border-radius: 12px;
+  padding: 20px;
+  font-style: italic;
+  font-family: 'Audiowide', sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* Asegura que el texto interno (span) no herede estilos del título */
+.fl-scrolly-step.citaBox span {
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
 /*---------------------FAST LAPS-----------------*/
 .three{
   margin: 10%;
@@ -96,16 +107,6 @@ img{
   justify-content: center;
   gap: 15%;
   color: white;
-}
-.circle {
-  fill: none;
-  stroke-width: 20;
-  stroke-dasharray: 0 999;
-  stroke-linecap: round;
-  transform-origin: center;
-  will-change: stroke-dasharray;
-  /* Efecto glow suave */
-  filter: drop-shadow(0 0 5px #);
 }
 .top-section {
   position: relative;
@@ -180,7 +181,14 @@ svg {
   border-radius: 50%;
   display: inline-block;
 }
-
+/*---------------------CIRCUITOS-----------------*/
+.map{
+  text-align: center;
+  justify-content: center;
+  color: white;
+  margin: 10% 20%;
+  row-gap: 10%;
+}
 /*---------------------PIT STOPS-----------------*/
 .four{
   color: white;
@@ -260,13 +268,6 @@ svg {
 .pregunta-final span {
   color: #ff8000;  /* Naranja McLaren */
   font-weight: bold;
-}
-.video iframe { 
-  width: 900px;
-  height: 506px;
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;
 }
 /*---------------------FOOTER-----------------*/
 footer {

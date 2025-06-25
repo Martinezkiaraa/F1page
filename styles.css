@@ -3,7 +3,6 @@
   padding: 0;
   scrollbar-width: none;
 }
-
 header .background {
   position: relative;
   justify-items: center;
@@ -100,6 +99,14 @@ img{
   font-weight: normal;
 }
 
+/*---------------------CIRCUITOS-----------------*/
+.map{
+  text-align: center;
+  justify-content: center;
+  color: white;
+  margin: 10% 20%;
+  row-gap: 10%;
+}
 /*---------------------FAST LAPS-----------------*/
 .three{
   margin: 10%;
@@ -107,6 +114,14 @@ img{
   justify-content: center;
   gap: 15%;
   color: white;
+}
+.circle {
+  fill: none;
+  stroke-width: 20;
+  stroke-dasharray: 0 999;
+  stroke-linecap: round;
+  transform-origin: center;
+  will-change: stroke-dasharray;
 }
 .top-section {
   position: relative;
@@ -181,14 +196,7 @@ svg {
   border-radius: 50%;
   display: inline-block;
 }
-/*---------------------CIRCUITOS-----------------*/
-.map{
-  text-align: center;
-  justify-content: center;
-  color: white;
-  margin: 10% 20%;
-  row-gap: 10%;
-}
+
 /*---------------------PIT STOPS-----------------*/
 .four{
   color: white;
@@ -268,6 +276,13 @@ svg {
 .pregunta-final span {
   color: #ff8000;  /* Naranja McLaren */
   font-weight: bold;
+}
+.video iframe { 
+  width: 900px;
+  height: 506px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 /*---------------------FOOTER-----------------*/
 footer {

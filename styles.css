@@ -5,10 +5,10 @@
 }
 
 header .background {
-position: relative;
-justify-items: center;
-width:100%; /* Altura del header */
-height: 910px;
+  position: relative;
+  justify-items: center;
+  width:100%; /* Altura del header */
+  height: 910px;
 }
 body{
   display: grid;
@@ -16,14 +16,18 @@ body{
   overflow-y: scroll;
   background-color:black;
 }
-  
+img{
+  width: 100%;
+  padding-top: 10%;
+  margin: 0px auto 50px;
+}
 .container {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   }
 /*<---------------------- TARJETAS ----------------->*/
 .one{
-  margin: 10% 10%;
+  margin: 20% 20%;
   align-items: center;
   justify-content: center;
   color: white;
@@ -37,6 +41,47 @@ body{
   justify-content: center;
   color: white;
 }
+/* ESTILOS PARA LOS TEXTOS FLOURISH */
+
+.fl-scrolly-step {
+  background-color: #ffffffe7 !important;
+  color: #000 !important;
+  max-width: 400px !important;
+  font-family: 'Noto Sans', sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* TÍTULO DEL PILOTO */
+.fl-scrolly-step span {
+  color: #ff8000;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* CITA DEL PILOTO */
+.fl-scrolly-step span.conFondo {
+  color: #0a0a0a;
+  font-size: 1.1rem;
+  background-color: #ff8000a8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* ALINEACIÓN DEL BLOQUE IZQUIERDO */
+.fl-scrolly-section .fl-scrolly-step.recto.izq {
+  transform: translate3d(-100%, 0, 0) !important;
+}
+
+/* ALINEACIÓN DEL BLOQUE DERECHO */
+.fl-scrolly-section .fl-scrolly-step.der {
+  transform: translate3d(100%, 0, 0) !important;
+}
+
 /*---------------------FAST LAPS-----------------*/
 .three{
   margin: 10%;
@@ -118,6 +163,14 @@ svg {
   border-radius: 50%;
   display: inline-block;
 }
+/*---------------------CIRCUITOS-----------------*/
+.map{
+  text-align: center;
+  justify-content: center;
+  color: white;
+  margin: 10%;
+  row-gap: 10%;
+}
 /*---------------------PIT STOPS-----------------*/
 .bottom-section {
   display: flex;
@@ -178,12 +231,83 @@ svg {
   margin: 10%;
   row-gap: 10%;
 }
+/*---------------------PREGUNTA FINAL-----------------*/
+.pregunta-final {
+  background-color: #1c1c1c;
+  padding: 40px;
+  color: #ff8000;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 60px auto;
+  width: 80%;
+}
+.pregunta-final span {
+  color: #ff8000;  /* Naranja McLaren */
+  font-weight: bold;
+}
 /*---------------------FOOTER-----------------*/
-footer{
+footer {
+  width: 100%;
   align-items: center;
   justify-content: center;
   color: white;
+  background-color: #3635356d;
   font-family: 'Noto Sans', sans-serif;
+  margin: 150px auto 0;
+  padding-bottom: 25px;
+}
+
+#nombres {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 0px;
+}
+
+#nombres li {
+  margin: 50px auto 30px;
+  flex-grow: 1;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  font-size: 13px;
+  vertical-align: top;
+}
+
+/* Círculo naranja para todos los nombres */
+#nombres li::before {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  background-color: #ff8000;
+  border-radius: 50%;
+  border: none;
+}
+
+#anio {
+  font-size: 12px;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  margin: 10px auto;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  width: 80%;
+  padding-top: 30px;
+  border-top: 1px dashed #ffffff;
 }
 /*<----------- TIPOGRÁFIAS -------------------->*/
 h1 {

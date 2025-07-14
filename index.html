@@ -10,11 +10,53 @@
     <link rel="icon" href="logo-F1.png" type="image/x-icon">
     <title>Trabajo Final - Visualización de Datos</title>
 </head>
-<header>
-  <!--CAMBIARLO A UN VIDEO-->
-  <iframe class ="background" style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/Sp1SDiGeC9C7nYFv9XyH6x/Visualizaci%C3%B3n-de-Datos?page-id=295%3A93&node-id=383-172&p=f&viewport=-1495%2C-3362%2C0.76&scaling=contain&content-scaling=fixed&starting-point-node-id=383%3A2&embed-host=share" allowfullscreen></iframe>
+<header id="header">
+  <video id="videoFondo" autoplay loop muted playsinline class="background">
+    <source src="f1.mp4" type="video/mp4">
+    Tu navegador no soporta este video.
+  </video>
+  <button id="soundButton" class="sound-toggle" title="Activar/desactivar sonido">OFF</button>
 </header>
-<body>  
+
+<script>
+  const video = document.getElementById('videoFondo');
+  const soundButton = document.getElementById('soundButton');
+
+  // Variable para recordar la elección del usuario
+  let userMuted = true; // comienza en OFF
+
+  // Actualiza el botón según estado de sonido
+  const updateButtonLabel = () => {
+    soundButton.textContent = userMuted ? 'OFF' : 'ON';
+  };
+
+  // Clic en botón → alternar estado de sonido
+  soundButton.addEventListener('click', () => {
+    userMuted = !userMuted;
+    video.muted = userMuted;
+    video.play().catch(e => console.log("Error al reproducir:", e));
+    updateButtonLabel();
+  });
+
+  // Observer para controlar visibilidad
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        video.currentTime = 0;
+        video.muted = userMuted; // mantener estado anterior
+        video.play().catch(e => console.log("Error al reproducir:", e));
+      } else {
+        video.pause(); // no cambiamos muted aquí
+      }
+      updateButtonLabel();
+    });
+  }, {
+    threshold: 0.6
+  });
+
+  observer.observe(video);
+</script>
+<body> 
     <div class="container">
       <div class="one">
         <h1> Los protagonistas </h1>
@@ -153,10 +195,9 @@
       <div class="pregunta-final">
         <h1>¿Cómo seguirá <span>McLaren</span> en la temporada 2025?</h1>
         <div class="video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/UiDKAbCisTQ?si=ggLFa6-a0teIWybC&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/UiDKAbCisTQ?si=ggLFa6-a0teIWybC" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
-
 
     </div>
   

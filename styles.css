@@ -3,11 +3,37 @@
   padding: 0;
   scrollbar-width: none;
 }
-header .background {
+#header {
   position: relative;
-  justify-items: center;
-  width:100%; /* Altura del header */
-  height: 910px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.sound-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sound-toggle:hover {
+  background-color: rgba(0,0,0,0.8);
 }
 body{
   display: grid;
@@ -26,7 +52,7 @@ img{
   }
 /*<---------------------- TARJETAS ----------------->*/
 .one{
-  margin: 10% 20%;
+  margin: 10% 30%;
   align-items: center;
   justify-content: center;
   color: white;
@@ -109,10 +135,10 @@ img{
 }
 /*---------------------FAST LAPS-----------------*/
 .three{
-  margin: 10%;
+  margin: 10% 20%;
   align-items: center;
   justify-content: center;
-  gap: 15%;
+
   color: white;
 }
 .circle {
@@ -133,8 +159,8 @@ img{
 
 .timer-container {
   position: absolute;
-  text-align: right;
-  margin: 5% 20% 0% 50%;
+  text-align: center;
+  margin: 5% 20% 0% 46%;
   z-index: 10;
 }
 #main-timer {
@@ -258,7 +284,7 @@ svg {
   text-align: center;
   justify-content: center;
   color: white;
-  margin: 10%;
+  margin: 10% 10%;
   row-gap: 10%;
 }
 /*---------------------PREGUNTA FINAL-----------------*/

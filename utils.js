@@ -1,14 +1,14 @@
 const teams = [
-  { name: "Red Bull", time: 101.200 },
-  { name: "Ferrari", time: 101.800 },
-  { name: "Mercedes", time: 101.420 },
-  { name: "McLaren", time: 101.345 },
-  { name: "Aston Martin", time: 100.800 },
-  { name: "Alpine", time: 103.756 },
-  { name: "Williams", time: 105.345 },
-  { name: "AlphaTauri", time: 106.234 },
-  { name: "Haas", time: 102.600 },
-  { name: "Sauber", time: 108.789 }
+  { name: "Red Bull", time: 92.608 },
+  { name: "Ferrari", time: 79.813 },
+  { name: "Mercedes", time: 74.165 },
+  { name: "McLaren", time: 73.817 },
+  { name: "Aston Martin", time: 67.694 },
+  { name: "Alpine", time: 97.33 },
+  { name: "Williams", time: 79.132 },
+  { name: "Racing Bulls", time: 94.486 },
+  { name: "Haas", time: 85.637 },
+  { name: "Sauber", time: 78.118 }
 ];
 
 // Elementos para top-section
